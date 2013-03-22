@@ -28,14 +28,14 @@ var sankey = d3.sankey()
 var path = sankey.link();
 
 // load the data
-d3.json("data/test.json", function(error, graph) {
+d3.json("data/test3.json", function(error, graph) {
 
     var nodeMap = {};
-    graph.nodes.forEach(function(x) { console.log(x.name); nodeMap[x.name] = x; });
+    graph.nodes.forEach(function(x) { nodeMap[x.name] = x; });
     graph.links = graph.links.map(function(x) {
       return {
-        source: nodeMap[x.source],
-        target: nodeMap[x.target],
+        source: x.source,
+        target: x.target,
         value: x.value
       };
     });

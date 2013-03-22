@@ -1,11 +1,10 @@
 {
     "links": [
-    {"source":"Adelboden","target":"Disparitätenabbau","value":"906011.34"},
-    {"source":"Adelboden","target":"Mindestausstattung","value":"324785"},
-    {"source":"Adelboden","target":"Pauschale Abgeltung","value":"0"},
-    {"source":"Adelboden","target":"Geo-topo Zuschuss","value":"697527"},
-    {"source":"Adelboden","target":"Sozio-demo Zuschuss","value":"26901"}
-
+    {"source":"Adelboden","target":"Disparitätenabbau","value":"906011.34","side":"left"},
+    {"source":"Adelboden","target":"Mindestausstattung","value":"324785","side":"left"},
+    {"source":"Adelboden","target":"Pauschale Abgeltung","value":"0","side":"left"},
+    {"source":"Adelboden","target":"Geo-topo Zuschuss","value":"697527","side":"left"},
+    {"source":"Adelboden","target":"Sozio-demo Zuschuss","value":"26901","side":"left"}
     ], "nodes": [
     {"name":"Adelboden"},
     {"name":"Disparitätenabbau"},
