@@ -1,3 +1,32 @@
+body {
+    font-family: Share, Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    background-color: #f6f6f6;
+    margin: 0;
+    padding: 0;
+}
+h1,h2,h3 {
+    margin: 0 0 1em;
+    padding: 0;
+}
+
+#header h1 {
+    padding: 0.5em 0;
+}
+
+#header {
+    color: #333;
+    background-color: #fff;
+    -moz-box-shadow:    0px 0px 10px 5px #ddd;
+    -webkit-box-shadow: 0px 0px 10px 5px #ddd;
+    box-shadow:         0px 0px 10px 5px #ddd;
+}
+
+#header,
+#content {
+    padding: 0 10px;
+}
+
 .node rect {
   cursor: move;
   fill-opacity: .9;
@@ -12,9 +41,9 @@
 .link {
   fill: none;
   stroke: #000;
-  stroke-opacity: .2;
+  stroke-opacity: .1;
 }
  
 .link:hover {
-  stroke-opacity: .5;
+  stroke-opacity: .3;
 }

@@ -1,7 +1,7 @@
 (function(d3){
 
 
-var units = "Widgets";
+var units = "CHF";
 
 var margin = {top: 10, right: 10, bottom: 10, left: 10},
     width = window.innerWidth - margin.left - margin.right,
@@ -29,17 +29,6 @@ var path = sankey.link();
 
 // load the data
 d3.json("data/test3.json", function(error, graph) {
-
-    var nodeMap = {};
-    graph.nodes.forEach(function(x) { nodeMap[x.name] = x; });
-    graph.links = graph.links.map(function(x) {
-      return {
-        source: x.source,
-        target: x.target,
-        value: x.value
-      };
-    });
-
   sankey
       .nodes(graph.nodes)
       .links(graph.links)
@@ -57,7 +46,7 @@ d3.json("data/test3.json", function(error, graph) {
 // add the link titles
   link.append("title")
         .text(function(d) {
-        return d.source.name + " → " +
+        return d.source.name + " -> " +
                 d.target.name + "\n" + format(d.value); });
 
 // add in the nodes
