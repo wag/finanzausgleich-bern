@@ -1,0 +1,14 @@
+{
+"nodes":[
+{"node":0,"name":"Grindelwald"},
+{"node":1,"name":"Grindelwald"},
+{"node":2,"name":"Interlaken-Oberhasli"},
+{"node":3,"name":"Interlaken-Oberhasli"},
+{"node":4,"name":"Disparitätenabbau"}
+],
+"links":[
+{"source":0,"target":2,"value":3406.35},
+{"source":2,"target":4,"value":3406.35},
+{"source":4,"target":3,"value":2000.35},
+{"source":3,"target":1,"value":2000.35}
+]}
