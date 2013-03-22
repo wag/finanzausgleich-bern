@@ -1,17 +1,25 @@
 body {
     font-family: Share, Helvetica, Arial, sans-serif;
-    font-size: 13px;
+    font-size: 14px;
     background-color: #f6f6f6;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
+    color: #333;
 }
+
 h1,h2,h3 {
     margin: 0 0 1em;
     padding: 0;
 }
+a {
+    color: #782121;
+}
 
 #header h1 {
     padding: 0.5em 0;
+    margin: 0;
+    float:left;
 }
 
 #header {
@@ -22,14 +30,37 @@ h1,h2,h3 {
     box-shadow:         0px 0px 10px 5px #ddd;
 }
 
-#header,
-#content {
+#header {
     padding: 0 10px;
+    color: #782121;
+}
+
+
+#about {
+    padding: 25px 20px 0 0;
+    float: right;
+    clear: right;
+    width: 500px;
+}
+
+#about-link {
+    display: block;
+    text-align: right;
+    font-weight:700;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+#about p {
+    text-align: right;
+}
+#about dd {
+    font-weight: 700;
 }
 
 .node rect {
   cursor: move;
-  fill-opacity: .9;
+  fill-opacity: .3;
   shape-rendering: crispEdges;
 }
  
@@ -41,7 +72,7 @@ h1,h2,h3 {
 .link {
   fill: none;
   stroke: #000;
-  stroke-opacity: .1;
+  stroke-opacity: .08;
 }
  
 .link:hover {

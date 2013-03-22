@@ -1,15 +1,47 @@
 (function(d3){
 
+var units = "CHF",
+    valueRange = [1, 100000000];
 
-var units = "CHF";
 
-var margin = {top: 10, right: 10, bottom: 10, left: 10},
-    width = window.innerWidth - margin.left - margin.right,
-    height = window.innerHeight - margin.top - margin.bottom;
+var chart = document.getElementById('chart'),
+    margin = {top: 30, right: 40, bottom: 120, left: 20},
+    width = chart.offsetWidth - margin.left - margin.right,
+    height = 650 - margin.top - margin.bottom;
+
 
 var formatNumber = d3.format(",.0f"),    // zero decimal places
     format = function(d) { return formatNumber(d) + " " + units; },
-    color = d3.scale.category20();
+    color = d3.scale.category20(),
+    nodeClass = function(d){
+        var cls = "node ", type="";
+        if(d.node < 5) {
+            type += "container";
+        } else if (d.node % 2 === 0){
+            type += "right";
+        } else {
+            type += "left";
+        }
+        d.type = type;
+        cls = cls + type;
+        return cls;
+    };
+
+var colorScaleRed = d3.scale.quantize()
+        .domain(valueRange)
+        .range(colorbrewer.Reds[6]),
+    colorScaleGrey = d3.scale.quantize()
+        .domain(valueRange)
+        .range(colorbrewer.Greys[4]),
+    colorScaleGreen = d3.scale.quantize()
+        .domain(valueRange)
+        .range(colorbrewer.Greens[6]);
+
+var colors =  {left: colorScaleRed, container: colorScaleGrey, right: colorScaleGreen};
+
+var nodeColor = function(d){
+    return colors[d.type](d.value);
+};
 
 // append the svg canvas to the page
 var svg = d3.select("#chart").append("svg")
@@ -53,7 +85,7 @@ d3.json("data/test3.json", function(error, graph) {
   var node = svg.append("g").selectAll(".node")
       .data(graph.nodes)
     .enter().append("g")
-      .attr("class", "node")
+      .attr("class", nodeClass)
       .attr("transform", function(d) {
           return "translate(" + d.x + "," + d.y + ")"; })
     .call(d3.behavior.drag()
@@ -67,9 +99,11 @@ d3.json("data/test3.json", function(error, graph) {
       .attr("height", function(d) { return d.dy; })
       .attr("width", sankey.nodeWidth())
       .style("fill", function(d) {
-          return d.color = color(d.name.replace(/ .*/, "")); })
+          d.color = nodeColor(d);
+          return d.color;
+      })
       .style("stroke", function(d) {
-          return d3.rgb(d.color).darker(2); })
+          return d3.rgb(d.color).darker(0.3); })
     .append("title")
       .text(function(d) {
           return d.name + "\n" + format(d.value); });
@@ -99,4 +133,4 @@ d3.json("data/test3.json", function(error, graph) {
   }
 });
 
-})(d3);
+}(d3));
