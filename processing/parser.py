@@ -7,47 +7,50 @@ output_json = {
     "links": []
 }
 
-header_labels = {}  # middle
-in_labels = {}  # left side
-out_labels = {}  # right side
+left_municipality = {}
+left_section = {}
+container = {}
+right_section = {}
+right_municipality = {}
 
-nr_of_buckets = 5
 node_counter = 0
 
 with open(data_file, 'r') as f:
-    header = f.readline().rstrip().split(',')[2:]
-    for i in range(0, len(header)):
+    header = f.readline().rstrip().split(',')
+    for i in range(2, len(header)):
         output_json["nodes"].append({"node": node_counter, "name": header[i]})
-        header_labels[header[i]] = node_counter
+        container[header[i]] = node_counter
         node_counter += 1
 
     for line in f.readlines():
-        line = line.rstrip()
-        parts = line.split(',')
-        region = parts[0]  # Verwaltungskreis
-        # section = parts[1]  # Gemeinde
-        if region not in [v["name"] for v in output_json["nodes"]]:
-            output_json["nodes"].append({"node": node_counter, "name": region})
-            in_labels[region] = node_counter
+        parts =  line.rstrip().split(',')
+        municipality = parts[0]
+        section = parts[1]
+        if section not in [v["name"] for v in output_json["nodes"]]:
+            output_json["nodes"].append({"node": node_counter, "name": section})
+            left_section[section] = node_counter
             node_counter += 1
-            output_json["nodes"].append({"node": node_counter, "name": region})
-            out_labels[region] = node_counter
+            output_json["nodes"].append({"node": node_counter, "name": section})
+            right_section[section] = node_counter
             node_counter += 1
 
-        for i in range(2,7):
-            value = float(parts[i])
-            if value < 0:  # Left side, donator
+        for i in range(2, len(header)):
+            value = round(float(parts[i]), 2)
+            # Left side, donator
+            if value < 0:
                 output_json["links"].append({
-                    "source": in_labels[parts[0]],
-                    "target": header_labels[header[i-2]],
+                    "source": left_section[parts[1]],
+                    "target": container[header[i]],
                     "value": -value
                 })
 
-            if value > 0:  # Right side, receiver
+            # Right side, receiver
+            if value > 0:
                 output_json["links"].append({
-                    "source": header_labels[header[i-2]],
-                    "target": out_labels[parts[0]],
+                    "source": container[header[i]],
+                    "target": right_section[parts[1]],
                     "value": value
                 })
+            # 0 values are getting ignored
 
 json.dump(output_json, open('out.json', 'w'))
