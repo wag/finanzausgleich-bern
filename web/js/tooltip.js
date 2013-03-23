@@ -1,5 +1,5 @@
 // Based on https://github.com/tpreusse/open-budget/blob/master/scripts/tooltip.js
-tooltip = function(target) {
+finance.tooltip = function(target) {
     var body = $('body');
     var formatCHF = d3.format(',f');
     var formatDiffPercent = d3.format('+.2');
