@@ -12,8 +12,22 @@ h1,h2,h3 {
     margin: 0 0 1em;
     padding: 0;
 }
+
+h2 {
+    font-size: 1.2em;
+    margin-top: 13px;
+}
+
 a {
     color: #782121;
+}
+
+ul{
+    padding-left: 0;
+}
+
+ul li{
+    list-style-type: none;
 }
 
 #header h1 {
@@ -74,6 +88,7 @@ a {
     width: 21%;
     margin-left: 2%;
     margin-right: 0;
+    vertical-align: top;
 }
 
 #tooltip {
