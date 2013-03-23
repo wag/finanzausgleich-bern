@@ -14,17 +14,7 @@ var formatNumber = d3.format(",.0f"),    // zero decimal places
     format = function(d) { return formatNumber(d) + " " + units; },
     color = d3.scale.category20(),
     nodeClass = function(d){
-        var cls = "node ", type="";
-        if(d.node < 5) {
-            type += "container";
-        } else if (d.node % 2 === 0){
-            type += "right";
-        } else {
-            type += "left";
-        }
-        d.type = type;
-        cls = cls + type;
-        return cls;
+      return "node " + d.side;
     };
 
 var colorScaleRed = d3.scale.quantize()
@@ -40,7 +30,7 @@ var colorScaleRed = d3.scale.quantize()
 var colors =  {left: colorScaleRed, container: colorScaleGrey, right: colorScaleGreen};
 
 var nodeColor = function(d){
-    return colors[d.type](d.value);
+    return colors[d.side](d.value);
 };
 
 // append the svg canvas to the page
@@ -60,7 +50,7 @@ var sankey = d3.sankey()
 var path = sankey.link();
 
 // load the data
-d3.json("data/test3.json", function(error, graph) {
+d3.json("data/2012.json", function(error, graph) {
   sankey
       .nodes(graph.nodes)
       .links(graph.links)
