@@ -14,6 +14,7 @@ var finance = {};
   $(document).ready(function() {
     finance.setup();
     finance.draw();
+    // finance.data();
   });
 
 }(jQuery));

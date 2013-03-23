@@ -38,7 +38,8 @@ for i in range(len(container)):
     nodes.append({
         "node": node_counter,
         "name": container[i],
-        "side": "container"
+        "side": "container",
+        "type": "container"
     })
     container_dict[container[i]] = node_counter
     node_counter += 1
@@ -68,7 +69,8 @@ for section in sections:
         nodes.append({
             "node": node_counter,
             "name": section,
-            "side": "left"
+            "side": "left",
+            "type": "section"
         })
         section_dict['left'][section] = node_counter
         node_counter += 1
@@ -76,7 +78,8 @@ for section in sections:
         nodes.append({
             "node": node_counter,
             "name": section,
-            "side": "right"
+            "side": "right",
+            "type": "section"
         })
         section_dict['right'][section] = node_counter
         node_counter += 1
@@ -84,9 +87,11 @@ for section in sections:
 # Add the municipalities to the nodes, make a distinction between
 # donators (left side) and receivers (right side).
 # Omit them, if the don't donate or receive any money.
-municipalities = set([v[0] for v in values])
-for municipality in municipalities:
+for line in values:
+    municipality = line[0]
+    section = line[1]
     has_left = has_right = False
+
     for line in values:
         if municipality == line[0]:
             numbers = [float(v) for v in line[2:]]
@@ -100,15 +105,20 @@ for municipality in municipalities:
         nodes.append({
             "node": node_counter,
             "name": municipality,
-            "side": "left"
+            "side": "left",
+            "type": "municipality",
+            "section": section_dict['left'][section]
         })
         municipality_dict['left'][municipality] = node_counter
         node_counter += 1
+
     if has_right:
         nodes.append({
             "node": node_counter,
             "name": municipality,
-            "side": "right"
+            "side": "right",
+            "type": "municipality",
+            "section": section_dict['right'][section]
         })
         municipality_dict['right'][municipality] = node_counter
         node_counter += 1
