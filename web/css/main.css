@@ -42,9 +42,9 @@ ul li{
     z-index: 100;
     color: #333;
     background-color: #fff;
-    -moz-box-shadow:    0px 0px 10px 5px #ddd;
-    -webkit-box-shadow: 0px 0px 10px 5px #ddd;
-    box-shadow:         0px 0px 10px 5px #ddd;
+    -moz-box-shadow:    0px 0px 10px 5px #999;
+    -webkit-box-shadow: 0px 0px 10px 5px #999;
+    box-shadow:         0px 0px 10px 5px #999;
 }
 
 #header {
@@ -118,6 +118,11 @@ ul li{
     position: absolute;
     width: 100%;
     top:50px;
+}
+
+#chart{
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .node rect {
