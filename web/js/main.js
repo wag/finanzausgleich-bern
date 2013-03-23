@@ -3,6 +3,17 @@
 var units = "CHF",
     valueRange = [1, 100000000];
 
+var nodeDesc = {
+    0:'<h3>Disparitätenabbau (#)</h3>Der Disparitätenabbau mildert die unterschiedliche finanzielle Leistungsfähigkeit der Gemeinden. Er wird durch die Gemeinden finanziert. Gemeinden mit einem harmonisierten Steuerertragsindex (HEI) grösser als 100 erbringen eine Ausgleichsleistung, Gemeinden mit einem HEI kleiner als 100 erhalten einen Zuschuss. Mehr zum Thema siehe Info-Button.',
+
+    1:'<h3>Mindestausstattung (#)</h3>Die Mindestausstattung bezweckt, den finanzschwächsten Gemeinden ausreichende Mittel zu verschaffen, damit sie ihre Aufgaben wirtschaftlich und sparsam erfüllen können. Mehr zum Thema siehe Info-Button.',
+
+    2:'<h3>Pauschale Abgeltung (#)</h3>Die Gemeinden Bern, Biel und Thun erhalten zur teilweisen Abgeltung ihrer überdurchschnittlich hohen Zentrumslasten in den Aufgabenbereichen privater Verkehr, öffentliche Sicherheit, Gästeinfrastruktur, Sport und soziale Sicherheit einen jährlichen Zuschuss. Mehr zum Thema siehe Info-Button.',
+
+    3:'<h3>Übermässige, geografisch-topografische Lasten (#)</h3>Einer Gemeinde können aus ihrer geografischen Lage oder aufgrund struktureller Umstände Nachteile erwachsen. Das FILAG setzt für die gezielte Entlastung zwei Zuschüsse ein: 1) Zuschuss Fläche und 2) Zuschuss Strassenlänge. Mehr zum Thema siehe Info-Button.',
+
+    4:'<h3>Übermässige, sozio-demografische Lasten (#)</h3>Gemeinden, die aufgrund ihrer sozio-demografischen Situation belastet sind, erhalten jährlich einen Zuschuss. Dieser dient u.a. zur Abfederung des Selbstbehaltes bei verschiedenen Angeboten der institutionellen Sozialhilfe. Mehr zum Thema siehe Info-Button.'
+}
 
 var chart = document.getElementById('chart'),
     margin = {top: 30, right: 40, bottom: 120, left: 20},
@@ -65,11 +76,13 @@ d3.json("data/2012.json", function(error, graph) {
       .style("stroke-width", function(d) { return Math.max(1, d.dy); })
       .sort(function(a, b) { return b.dy - a.dy; });
 
-// add the link titles
-  link.append("title")
-        .text(function(d) {
-        return d.source.name + " -> " +
-                d.target.name + "\n" + format(d.value); });
+// add the link tooltip
+  link.attr("data-tooltip", function(d) {
+        return '<strong>' + format(d.value) + '</strong><br />' +
+               d.source.name + ' &rarr; ' + d.target.name;
+  });
+  tooltip( $('#chart path.link') )
+
 
 // add in the nodes
   var node = svg.append("g").selectAll(".node")
@@ -78,11 +91,13 @@ d3.json("data/2012.json", function(error, graph) {
       .attr("class", nodeClass)
       .attr("transform", function(d) {
           return "translate(" + d.x + "," + d.y + ")"; })
+      /* disable dragging
     .call(d3.behavior.drag()
       .origin(function(d) { return d; })
       .on("dragstart", function() {
           this.parentNode.appendChild(this); })
       .on("drag", dragmove));
+      */
 
 // add the rectangles for the nodes
   node.append("rect")
@@ -94,9 +109,15 @@ d3.json("data/2012.json", function(error, graph) {
       })
       .style("stroke", function(d) {
           return d3.rgb(d.color).darker(0.3); })
-    .append("title")
-      .text(function(d) {
-          return d.name + "\n" + format(d.value); });
+      .attr("data-tooltip", function(d){
+          if (d.node in nodeDesc){
+              return nodeDesc[d.node].replace('#', format(d.value));
+          }
+          return '<strong>'+ d.name + "</strong><br />" + format(d.value);
+      });
+
+  tooltip( $('#chart .node rect') );
+  
 
 // add in the title for the nodes
   node.append("text")
@@ -108,7 +129,7 @@ d3.json("data/2012.json", function(error, graph) {
       .text(function(d) { return d.name; })
     .filter(function(d) { return d.x < width / 2; })
       .attr("x", 6 + sankey.nodeWidth())
-      .attr("text-anchor", "start");
+      .attr("text-anchor", "start")
 
 // the function for moving the nodes
   function dragmove(d) {

@@ -58,8 +58,31 @@ a {
     font-weight: 700;
 }
 
+#tooltip {
+  font-size: 12px;
+  position: absolute;
+  padding: 5px;
+  z-index: 100000;
+  max-width: 300px;
+}
+
+#tooltip div {
+  background-color: #000;
+  color: #fff;
+  padding: 5px 8px 4px 8px;
+  text-align: left;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+
+#tooltip div h3{
+    margin-bottom: 0.5em;
+    font-size: inherit;
+}
+
+
 .node rect {
-  cursor: move;
   fill-opacity: .3;
   shape-rendering: crispEdges;
 }
