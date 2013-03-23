@@ -1,9 +1,6 @@
 // Based on https://github.com/tpreusse/open-budget/blob/master/scripts/tooltip.js
 finance.tooltip = function(target) {
-    var body = $('body');
-    var formatCHF = d3.format(',f');
-    var formatDiffPercent = d3.format('+.2');
-    var tip = $('<div id="tooltip"></div>').html('<div></div>').hide().appendTo(body);
+    var tip = $('<div id="tooltip"></div>').html('<div></div>').hide().appendTo($('body'));
     var tipInner = tip.find('div');
 
     $(document).mousemove(function(e){

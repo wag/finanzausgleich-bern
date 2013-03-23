@@ -45,8 +45,8 @@ finance.draw = function() {
 
   // append the svg canvas to the page
   var svg = d3.select("#chart").append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
+      .attr("width", '2000') //width + margin.left + margin.right)
+      .attr("height", '1600') //height + margin.top + margin.bottom)
       .append("g")
       .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");

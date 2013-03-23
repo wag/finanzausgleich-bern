@@ -15,10 +15,8 @@ node_counter = 0
 
 values = []
 container_dict = {}
-section_dict = {
-    'left': {},
-    'right': {}
-}
+section_dict = {'left': {}, 'right': {}}
+municipality_dict = {'left': {}, 'right': {}}
 section_amount = {
     'left': defaultdict(lambda: defaultdict(lambda: 0)),
     'right': defaultdict(lambda: defaultdict(lambda: 0))
@@ -86,6 +84,34 @@ for section in sections:
 # Add the municipalities to the nodes, make a distinction between
 # donators (left side) and receivers (right side).
 # Omit them, if the don't donate or receive any money.
+municipalities = set([v[0] for v in values])
+for municipality in municipalities:
+    has_left = has_right = False
+    for line in values:
+        if municipality == line[0]:
+            numbers = [float(v) for v in line[2:]]
+            if min(numbers) < 0:
+                has_left = True
+            if max(numbers) > 0:
+                has_right = True
+            break
+
+    if has_left:
+        nodes.append({
+            "node": node_counter,
+            "name": municipality,
+            "side": "left"
+        })
+        municipality_dict['left'][municipality] = node_counter
+        node_counter += 1
+    if has_right:
+        nodes.append({
+            "node": node_counter,
+            "name": municipality,
+            "side": "right"
+        })
+        municipality_dict['right'][municipality] = node_counter
+        node_counter += 1
 
 # Add the links between the containers, the left and right sections
 # Omit them, if the don't donate or receive any money.
@@ -105,6 +131,30 @@ for section in sections:
                 "source": container_dict[container[i]],
                 "target": section_dict['right'][section],
                 "value": section_amount['right'][section][i]
+            })
+
+# Add the links between the left and right municipalities and sections.
+# Omit them, if the don't donate or receive any money.
+for line in values:
+    municipality = line[0]
+    section = line[1]
+
+    for i in range(2, len(container) + 2):
+        value = round(float(line[i]), 2)
+        if value < 0:
+        # if municipality in municipality_dict['left'] and line[i] != 0:
+            links.append({
+                "source": municipality_dict['left'][municipality],
+                "target": section_dict['left'][section],
+                "value": -value
+            })
+
+        # if municipality in municipality_dict['right'] and line[i] != 0:
+        if value > 0:
+            links.append({
+                "source": section_dict['right'][section],
+                "target": municipality_dict['right'][municipality],
+                "value": value
             })
 
 json.dump(main_json, open(json_file, 'w'))
