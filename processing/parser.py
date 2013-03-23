@@ -86,8 +86,10 @@ for line in lines[1:]:
     municipality = parts[0]
     section = parts[1]
     nodes = section_json[section]["nodes"]
-    counter = section_node_counter[section]
-    # import pdb;pdb.set_trace()
+
+    # if section not in [v["name"] for v in nodes]:
+    #     nodes.append({"node": section_node_counter[section], "name":})
+
     if municipality not in [v["name"] for v in nodes]: # or municipality == section:
         has_left = has_right = False
         for _line in lines[1:]:
@@ -101,13 +103,13 @@ for line in lines[1:]:
                 if has_left and has_right:
                     break
         if has_left:
-            nodes.append({"node": counter, "name": municipality, "side": "left"})
-            municipality_dict['left'][municipality] = counter
-            counter += 1
+            nodes.append({"node": section_node_counter[section], "name": municipality, "side": "left"})
+            municipality_dict['left'][municipality] = section_node_counter[section]
+            section_node_counter[section] += 1
         if has_right:
-            nodes.append({"node": counter, "name": municipality, "side": "right"})
-            municipality_dict['right'][municipality] = counter
-            counter += 1
+            nodes.append({"node": section_node_counter[section], "name": municipality, "side": "right"})
+            municipality_dict['right'][municipality] = section_node_counter[section]
+            section_node_counter[section] += 1
 
 for line in lines[1:]:
     parts =  line.rstrip().split(',')
@@ -137,28 +139,33 @@ for section in set([v.split(',')[1] for v in lines[1:]]):
                 "value": section_value['right'][section][i]
             })
 
-# for line in lines[1:]:
-#     parts =  line.rstrip().split(',')
-#     municipality = parts[0]
-#     section = parts[1]
+for line in lines[1:]:
+    parts =  line.rstrip().split(',')
+    municipality = parts[0]
+    section = parts[1]
+    links = section_json[section]["links"]
 
-#     for i in range(2, len(header)):
-#         value = round(float(parts[i]), 2)
-#         # Left side, donator
-#         if value < 0:
-#             main_json["links"].append({
-#                 "source": left_municipality[municipality],
-#                 "target": section['left'][section],
-#                 "value": -value
-#             })
+    for i in range(2, len(header)):
+        value = round(float(parts[i]), 2)
+        # Left side, donator
+        if value < 0:
+            links.append({
+                "source": municipality_dict['left'][municipality],
+                "target": section_dict['left'][section],
+                "value": -value
+            })
 
-#         # Right side, receiver
-#         if value > 0:
-#             main_json["links"].append({
-#                 "source": section['right'][section],
-#                 "target": right_municipality[municipality],
-#                 "value": value
-#             })
-#         # 0 values are getting ignored
+        # Right side, receiver
+        if value > 0:
+            links.append({
+                "source": section_dict['right'][section],
+                "target": municipality_dict['right'][municipality],
+                "value": value
+            })
+        # 0 values are getting ignored
 
 json.dump(main_json, open(json_file, 'w'))
+for side in section_dict.values():
+    for name, node in side.items():
+        json.dump(section_json[name], open('json/{0}_{1}.json'.format(year, node), 'w'))
+
