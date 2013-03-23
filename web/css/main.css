@@ -36,26 +36,40 @@ a {
 }
 
 
-#about {
-    padding: 25px 20px 0 0;
+#menu {
+    padding: 15px 20px 0 0;
     float: right;
     clear: right;
     width: 500px;
+    text-align: right;
 }
 
-#about-link {
-    display: block;
+#menu .link{
+    display: inline-block;
     text-align: right;
     font-weight:700;
     text-decoration: none;
     text-transform: uppercase;
 }
 
-#about p {
+#menu p {
     text-align: right;
 }
-#about dd {
+#menu dd {
     font-weight: 700;
+}
+
+.flipcontent {
+    top:0;
+    width: 100%
+    background-color: rgba(255,255,255,0.8); 
+}
+
+.flipcontent .col{
+    display: inline-block;
+    width: 21%;
+    margin-left: 2%;
+    margin-right: 2%;
 }
 
 #tooltip {
@@ -81,6 +95,11 @@ a {
     font-size: inherit;
 }
 
+#content{
+    position: absolute;
+    width: 100%;
+    top:50px;
+}
 
 .node rect {
   fill-opacity: .3;
