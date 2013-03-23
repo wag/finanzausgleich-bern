@@ -7,12 +7,13 @@ tooltip = function(target) {
     var tipInner = tip.find('div');
 
     $(document).mousemove(function(e){
+        var width = e.pageX + tip.width() > $(window).width() ? - tip.width() - 15 : 15;
         tip.css({
-            'top': e.pageY + 0,
-            'left': e.pageX + 10
+            'top': e.pageY,
+            'left': e.pageX + width
         });
     });
-    
+
     target.bind('mouseover', function(){
         tipInner.html( $(this).data('tooltip') );
         tip.show();
@@ -20,4 +21,4 @@ tooltip = function(target) {
     target.bind('mouseout', function(){
         tip.hide();
     });
-}
+};
