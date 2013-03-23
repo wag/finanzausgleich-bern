@@ -1,7 +1,9 @@
 (function($){
-    $('#about-content').hide();
-    $('#about a:first').click(function(evt){
-        $($(evt.currentTarget).attr('href')).slideToggle();
+    $('.flipcontent').hide();
+    $('.fliplink').click(function(evt){
+        current = $($(evt.currentTarget).attr('href'));
+        $('.flipcontent').not(current).slideUp();
+        current.slideToggle();
         evt.preventDefault();
     });
 }(jQuery));
