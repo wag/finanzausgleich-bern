@@ -1,7 +1,7 @@
 var finance = {};
 
 (function($){
-  finance.setup = function() {
+  finance.registerListeners = function() {
     $('.flipcontent').hide();
     $('.fliplink').click(function(e){
       current = $($(e.currentTarget).attr('href'));
@@ -9,9 +9,7 @@ var finance = {};
       current.slideToggle('fast');
       e.preventDefault();
     });
-  };
 
-  finance.registerListeners = function() {
     // Note: add/toogle/removeClass does not work reliably on svg elements
     var svg = $('#chart svg');
     svg.on('mouseenter', 'rect', function() {
@@ -28,6 +26,8 @@ var finance = {};
       });
     });
 
+    // svg.on('load', function() {$('.loader').hide();});
+
     $('#content').on('click', function() {
       if($('.flipcontent').is(':visible')) {
         $('.flipcontent').slideUp('fast');
@@ -36,10 +36,10 @@ var finance = {};
   };
 
   $(document).ready(function() {
-    finance.setup();
     finance.draw();
     // finance.data();
-
+    $('#chart').hide().fadeIn('slow');
+    $('.loader').fadeOut('slow');
     finance.registerListeners();
   });
 

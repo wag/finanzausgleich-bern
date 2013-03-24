@@ -19,7 +19,7 @@ h2 {
 }
 
 h3 {
-  margin-bottom:0.3em;
+  margin-bottom: 0.3em;
 }
 
 a {
@@ -36,21 +36,21 @@ ul li {
 }
 
 #header h1 {
-  padding: 0.3em 0;
+  padding: 0.5em 0;
   margin: 0;
   float:left;
 }
 
 #header {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
   position: absolute;
   width: 100%;
   padding: 0 10px;
   z-index: 100;
   color: #782121;
   background-color: #fff;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   -moz-box-shadow:    0 0 10px 5px #999;
   -webkit-box-shadow: 0 0 10px 5px #999;
   box-shadow:         0 0 10px 5px #999;
@@ -58,7 +58,7 @@ ul li {
 
 
 #menu {
-  padding: 20px 0 0 0;
+  margin: 25px 0 0 0;
   float: right;
   clear: right;
 }
@@ -69,6 +69,44 @@ ul li {
   font-weight:700;
   text-decoration: none;
   text-transform: uppercase;
+}
+
+a.icon {
+  font-size: 28px;
+  color: #333;
+  text-decoration: none;
+  margin: 0 6px 0 0;
+  padding: 0;
+  overflow: visible;
+}
+
+a.icon:hover .icon-question-sign {
+  color: #782121;
+}
+
+.icon-opendata {
+  background: url('../img/opendata-off.svg') no-repeat center;
+  background-size: 25px 25px;
+  width: 27px;
+  height: 27px;
+  margin: 2px 0;
+  vertical-align: top;
+}
+
+a.icon:hover .icon-opendata {
+   background-image: url('../img/opendata-on.svg');
+}
+
+a.icon:hover .icon-github {
+  color: #4183C4;
+}
+
+.icon-twitter {
+  font-size:25px;
+}
+
+a.icon:hover .icon-twitter {
+  color: #0084b4;
 }
 
 #menu p {
@@ -82,7 +120,6 @@ ul li {
 .flipcontent {
   display:none;
   top:50px;
-  background-color: rgba(255,255,255,0.8);
   padding-bottom: 10px;
   border-top:1px dotted #782121;
 }
@@ -116,13 +153,28 @@ ul li {
 
 #content {
   position: absolute;
+  top:60px;
   width: 100%;
-  top:50px;
 }
 
 #chart {
   margin-left: auto;
   margin-right: auto;
+}
+
+.loader {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(246,246,246);
+  background-color: rgba(246,246,246,.8);
+}
+
+.loader h2 {
+  font-size:1.5em;
+  text-align: center;
+  color: #666;
+  margin-top:20px;
 }
 
 .node rect {
