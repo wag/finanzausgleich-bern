@@ -26,21 +26,33 @@ var finance = {};
       });
     });
 
-    // svg.on('load', function() {$('.loader').hide();});
-
     $('#content').on('click', function() {
       if($('.flipcontent').is(':visible')) {
         $('.flipcontent').slideUp('fast');
       }
     });
+
+    $('#menu a.icon').hover(function() {
+      var shorttip = $(this).closest('#menu').find('.shorttip');
+      shorttip.find('.shorttip-tail').css('left', $(this).position().left + 6);
+      if(shorttip.is(':visible')) {
+        shorttip.hide();
+      } else {
+        shorttip.find('.shorttip-text').text($(this).data('shorttip'));
+        shorttip.show();
+      }
+    });
   };
 
   $(document).ready(function() {
-    finance.draw();
-    // finance.data();
-    $('#chart').hide().fadeIn('slow');
-    $('.loader').fadeOut('slow');
-    finance.registerListeners();
+    if(!document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1")) {
+      $('.too-old').fadeIn('slow');
+    } else {
+      finance.draw();
+      $('#chart').hide().fadeIn('slow');
+      $('.loader').show().fadeOut('slow');
+      finance.registerListeners();
+    }
   });
 
 }(jQuery));

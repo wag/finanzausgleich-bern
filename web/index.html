@@ -11,18 +11,24 @@
     <div id="header">
         <h1>Finanzausgleich im Kanton Bern (Vollzug 2012)</h1>
         <div id="menu">
-            <a class="fliplink icon" href="#explanations-content" data-text="Erklärung">
-                <i class="icon-question-sign"></i>
-            </a>
-            <a class="icon" href="http://make.opendata.ch/wiki/project:finanzausgleich_bern" target="_blank" data-text="Projektinformationen">
-                <i class="icon-opendata"></i>
-            </a>
-            <a class="icon" href="https://github.com/wag/finanzausgleich-bern" target="_blank" data-text="Source Code">
-                <i class="icon-github"></i>
-            </a>
-            <a class="icon" href="https://twitter.com/intent/tweet?hashtags=ogd&amp;text=Berner%20Finanzausgleich&amp;url=...&amp;via=OpendataCH" target="_blank" data-text="Tweet it!">
-                <i class="icon-twitter"></i>
-            </a>
+            <div class="shorttip">
+                <div class="shorttip-text">Erklärungen</div>
+                <div class="shorttip-tail"></div>
+            </div>
+            <div class="icons">
+                <a class="fliplink icon" href="#explanations-content" data-shorttip="Erklärungen">
+                    <i class="icon-question-sign"></i>
+                </a>
+                <a class="icon" href="http://make.opendata.ch/wiki/project:finanzausgleich_bern" target="_blank" data-shorttip="Projektinformationen">
+                    <i class="icon-opendata"></i>
+                </a>
+                <a class="icon" href="https://github.com/wag/finanzausgleich-bern" target="_blank" data-shorttip="Source Code">
+                    <i class="icon-github"></i>
+                </a>
+                <a class="icon" href="https://twitter.com/intent/tweet?hashtags=ogd&amp;text=Berner%20Finanzausgleich&amp;url=...&amp;via=OpendataCH" target="_blank" data-shorttip="Tweet it!">
+                    <i class="icon-twitter"></i>
+                </a>
+            </div>
         </div>
         <div style="clear:both;"></div>
         <div id="explanations-content" class="flipcontent">
@@ -47,14 +53,16 @@
             <ul>
                 <li><a href="http://www.fin.be.ch/fin/de/index/finanzen/finanzen/finanz-_und_lastenausgleich/instrumente.html" target="_blank">Instrumente des Finanz- und Lastenausgleichs im Kanton Bern</a></li>
                 <li><a href="http://www.jgk.be.ch/jgk/de/index/gemeinden/gemeinden/partnerschaft_kanton_gemeinden.html" target="_blank">Verhältnis Kanton Bern – Gemeinden</a></li>
-    <li><a href="http://www.jgk.be.ch/jgk/de/index/gemeinden/gemeinden/gemeindefinanzen/statistik0.html" target="_blank">Statistik Gemeindefinanzen Kanton Bern</a></li>
-    <li><a href="http://www.jgk.be.ch/jgk/de/index/gemeinden/gemeinden/gemeindefinanzen/statistik0.html" target="_blank">Finanzausgleich beim Bund</a></li>
+                <li><a href="http://www.jgk.be.ch/jgk/de/index/gemeinden/gemeinden/gemeindefinanzen/statistik0.html" target="_blank">Statistik Gemeindefinanzen Kanton Bern</a></li>
+                <li><a href="http://www.jgk.be.ch/jgk/de/index/gemeinden/gemeinden/gemeindefinanzen/statistik0.html" target="_blank">Finanzausgleich beim Bund</a></li>
             </ul>
             </div>
         </div>
     </div>
     <div id="content">
-        <div class="loader"><h2>Loading...</h2></div>
+        <div class="too-old"><p>Ihr Browser ist leider etwas antiquiert, um diese Visualisierung darzustellen.</p>
+            <p>Versuchen Sie sie es bitte erneut mit einer neueren Version oder mit einem alternativen Browser.</p></div>
+        <div class="loader"><h2>Daten werden geladen...</h2></div>
         <div id="chart"></div>
     </div>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
