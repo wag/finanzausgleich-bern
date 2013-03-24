@@ -12,20 +12,18 @@ var finance = {};
   };
 
   finance.registerListeners = function(svg) {
-    svg.load(function() {
-      $(this).find('rect').hover(function() {
-        var clsList = $(this).parent().attr('class'),
-            cls;
-        if(clsList.match('node_[0-9]+')) {
-          cls = 'node_' + clsList.split('_')[1];
-          svg.find('path.' + cls).each(function() {
-            $(this).attr('class', $(this).attr('class') + ' highlight');
-          });
-        }
-      }, function(e) {
-        svg.find('.highlight').each(function() {
-          $(this).attr('class', $(this).attr('class').replace(' highlight', ''));
+    // Note: add/toogle/removeClass does not work reliably on svg elements
+    svg.on('mouseenter', 'rect', function() {
+      var clsList = $(this).parent().attr('class');
+      if(clsList.match('node_[0-9]+')) {
+        svg.find('path.' + 'node_' + clsList.split('_')[1]).each(function() {
+          $(this).attr('class', $(this).attr('class') + ' highlight');
         });
+      }
+    });
+    svg.on('mouseleave', 'rect', function() {
+      svg.find('.highlight').each(function() {
+        $(this).attr('class', $(this).attr('class').replace(' highlight', ''));
       });
     });
   };

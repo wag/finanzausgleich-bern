@@ -3,15 +3,11 @@ finance.draw = function() {
       valueRange = [1, 100000000];
 
   var nodeDesc = {
-      0:'<h3>Disparitätenabbau (#)</h3>Der Disparitätenabbau mildert die unterschiedliche finanzielle Leistungsfähigkeit der Gemeinden. Er wird durch die Gemeinden finanziert. Gemeinden mit einem harmonisierten Steuerertragsindex (HEI) grösser als 100 erbringen eine Ausgleichsleistung, Gemeinden mit einem HEI kleiner als 100 erhalten einen Zuschuss. Mehr zum Thema siehe Info-Button.',
-
-      1:'<h3>Mindestausstattung (#)</h3>Die Mindestausstattung bezweckt, den finanzschwächsten Gemeinden ausreichende Mittel zu verschaffen, damit sie ihre Aufgaben wirtschaftlich und sparsam erfüllen können. Mehr zum Thema siehe Info-Button.',
-
-      2:'<h3>Pauschale Abgeltung (#)</h3>Die Gemeinden Bern, Biel und Thun erhalten zur teilweisen Abgeltung ihrer überdurchschnittlich hohen Zentrumslasten in den Aufgabenbereichen privater Verkehr, öffentliche Sicherheit, Gästeinfrastruktur, Sport und soziale Sicherheit einen jährlichen Zuschuss. Mehr zum Thema siehe Info-Button.',
-
-      3:'<h3>Übermässige, geografisch-topografische Lasten (#)</h3>Einer Gemeinde können aus ihrer geografischen Lage oder aufgrund struktureller Umstände Nachteile erwachsen. Das FILAG setzt für die gezielte Entlastung zwei Zuschüsse ein: 1) Zuschuss Fläche und 2) Zuschuss Strassenlänge. Mehr zum Thema siehe Info-Button.',
-
-      4:'<h3>Übermässige, sozio-demografische Lasten (#)</h3>Gemeinden, die aufgrund ihrer sozio-demografischen Situation belastet sind, erhalten jährlich einen Zuschuss. Dieser dient u.a. zur Abfederung des Selbstbehaltes bei verschiedenen Angeboten der institutionellen Sozialhilfe. Mehr zum Thema siehe Info-Button.'
+      0:'<h3>Disparitätenabbau (#)</h3>Der Disparitätenabbau mildert die unterschiedliche finanzielle Leistungsfähigkeit der Gemeinden. Er wird durch die Gemeinden finanziert. Gemeinden mit einem harmonisierten Steuerertragsindex (HEI) grösser als 100 erbringen eine Ausgleichsleistung, Gemeinden mit einem HEI kleiner als 100 erhalten einen Zuschuss. Mehr zum Thema siehe Erklärungen-Button.',
+      1:'<h3>Mindestausstattung (#)</h3>Die Mindestausstattung bezweckt, den finanzschwächsten Gemeinden ausreichende Mittel zu verschaffen, damit sie ihre Aufgaben wirtschaftlich und sparsam erfüllen können. Mehr zum Thema siehe Erklärungen-Button.',
+      2:'<h3>Pauschale Abgeltung (#)</h3>Die Gemeinden Bern, Biel und Thun erhalten zur teilweisen Abgeltung ihrer überdurchschnittlich hohen Zentrumslasten in den Aufgabenbereichen privater Verkehr, öffentliche Sicherheit, Gästeinfrastruktur, Sport und soziale Sicherheit einen jährlichen Zuschuss. Mehr zum Thema siehe Erklärungen-Button.',
+      3:'<h3>Übermässige, geografisch-topografische Lasten (#)</h3>Einer Gemeinde können aus ihrer geografischen Lage oder aufgrund struktureller Umstände Nachteile erwachsen. Das FILAG setzt für die gezielte Entlastung zwei Zuschüsse ein: 1) Zuschuss Fläche und 2) Zuschuss Strassenlänge. Mehr zum Thema siehe Erklärungen-Button.',
+      4:'<h3>Übermässige, sozio-demografische Lasten (#)</h3>Gemeinden, die aufgrund ihrer sozio-demografischen Situation belastet sind, erhalten jährlich einen Zuschuss. Dieser dient u.a. zur Abfederung des Selbstbehaltes bei verschiedenen Angeboten der institutionellen Sozialhilfe. Mehr zum Thema siehe Erklärungen-Button.'
   };
 
   var chart = document.getElementById('chart'),
