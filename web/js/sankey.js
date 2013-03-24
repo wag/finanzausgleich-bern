@@ -15,11 +15,14 @@ finance.draw = function() {
       height = 650 - margin.top - margin.bottom,
 
   formatNumber = d3.format(",.0f"),    // zero decimal places
-      format = function(d) { return formatNumber(d) + " " + units; },
-      color = d3.scale.category20(),
-      nodeClass = function(d){
-        return "node " + d.side;
-      },
+  format = function(d) { return formatNumber(d) + " " + units; },
+  color = d3.scale.category20(),
+  nodeClass = function(d) {
+    return 'node ' + d.side;
+  },
+  linkClass = function(d) {
+    return 'link';
+  },
 
   colorScaleRed = d3.scale.quantize()
           .domain(valueRange)
@@ -56,13 +59,33 @@ finance.draw = function() {
   // load the data
   d3.json("data/2012.json", function(error, graph) {
 
-    nodes = $.makeArray($(graph.nodes).filter(function(node, obj) {
-      return (obj.type === 'container' || obj.type === 'section');
-    }));
+    // nodes = $.makeArray($(graph.nodes).filter(function(node, obj) {
+    //   return (obj.type === 'container' || obj.type === 'section');
+    // }));
 
-    links = $.makeArray($(graph.links).filter(function(node, obj) {
-        return (obj.source in nodes && obj.target in nodes);
-    }));
+    // var usedNodes = [],
+    //     nodes = [];
+    // for(var i = 0; i < graph.nodes.length; i++) {
+    //   var obj = graph.nodes[i];
+    //   if(
+    //       (obj.type === 'section' && obj.side === 'right' && obj.node === 16) ||
+    //       (obj.type === 'municipality' && obj.side === 'right' && obj.section === 16)
+    //   ) {
+    //     nodes[i] = obj;
+    //     usedNodes.push(obj.node);
+    //   } else {
+    //     nodes[i] = undefined;
+    //   }
+    // }
+    // console.log(nodes);
+    // var links = $.makeArray($(graph.links).filter(function(node, obj) {
+    //   // if (usedNodes.indexOf(obj.source) >= 0 && usedNodes.indexOf(obj.target) >= 0)
+    //   //   console.log('src: ' + obj.source + '----tar: ' + obj.target);
+    //   return (usedNodes.indexOf(obj.source) >= 0 && usedNodes.indexOf(obj.target) >= 0);
+    // }));
+
+    nodes = graph.nodes;
+    links = graph.links;
 
     sankey
         .nodes(nodes)
@@ -73,7 +96,7 @@ finance.draw = function() {
     var link = svg.append("g").selectAll(".link")
         .data(links)
         .enter().append("path")
-        .attr("class", "link")
+        .attr("class", linkClass)
         .attr("d", path)
         .style("stroke-width", function(d) { return Math.max(1, d.dy); })
         .sort(function(a, b) { return b.dy - a.dy; });
