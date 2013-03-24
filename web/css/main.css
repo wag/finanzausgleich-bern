@@ -142,6 +142,7 @@ ul li{
   stroke-opacity: .08;
 }
  
-.link:hover {
+.link:hover,
+.highlight {
   stroke-opacity: .3;
 }

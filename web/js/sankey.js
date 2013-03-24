@@ -23,9 +23,12 @@ finance.draw = function() {
   var formatNumber = d3.format(",.0f"),    // zero decimal places
       format = function(d) { return formatNumber(d) + " " + units; },
       color = d3.scale.category20(),
-      nodeClass = function(d){
-        return "node " + d.side;
-      };
+  nodeClass = function(d) {
+    return 'node ' + d.side + ' node_' + d.node;
+  },
+  linkClass = function(d) {
+    return 'link ' + 'node_' + d.source.node + ' node_' + d.target.node;
+  };
 
   var colorScaleRed = d3.scale.quantize()
           .domain(valueRange)
@@ -70,7 +73,7 @@ finance.draw = function() {
     var link = svg.append("g").selectAll(".link")
         .data(graph.links)
         .enter().append("path")
-        .attr("class", "link")
+        .attr("class", linkClass)
         .attr("d", path)
         .style("stroke-width", function(d) { return Math.max(1, d.dy); })
         .sort(function(a, b) { return b.dy - a.dy; });
