@@ -1,29 +1,21 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<meta name="description" content="A visualization of the financial compensation regarding the Canton of Berne.">
-<meta name="keywords" content="finance,bern,berne,statistics,flow,d3,sankey,diagram,money" />
+<meta name="description" content="A visualization of the financial compensation in the Canton of Berne.">
+<meta name="keywords" content="finance,bern,berne,statistics,flow,d3,sankey,diagram,money,tax,taxes">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-
-<html lang="en">
-<head>
-    <title>Finanzausgleich Bern</title>
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Share:400,700" type="text/css">
-    <link rel=stylesheet type=text/css href="css/main.css">
-</head>
+<title>Finanzausgleich Bern</title>
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Share:400,700">
+<link rel="stylesheet" type="text/css" href="css/main.css">
 <body>
     <div id="header">
         <h1>Finanzausgleich im Kanton Bern (Vollzug 2012)</h1>
         <div id="menu">
-            <a class="fliplink" href="#explanations-content">Erklärungen</a> / 
-            <a class="fliplink" href="#about-content">Projektinfos</a>
+            <a class="fliplink" href="#explanations-content">Erklärungen</a> /
+            <a href="http://make.opendata.ch/wiki/project:finanzausgleich_bern" target="_blank">Projektseite</a> /
+            <a href="https://github.com/wag/finanzausgleich-bern" target="_blank">Source Code</a> /
+            <a href="https://twitter.com/intent/tweet?hashtags=ogd&amp;text=Berner%20Finanzausgleich&amp;url=...&amp;via=OpendataCH" target="_blank">Tweet it!</a>
         </div>
         <div style="clear:both;"></div>
-        <div id="about-content" class="flipcontent">
-            <a href="http://make.opendata.ch/wiki/project:finanzausgleich_bern" target="_blank">Projektseite</a>
-            - <a href="http://repository.opendata.ch/kantonbern/Finanzausgleich/" target="_blank">Daten Finanzausgleich Bern</a>
-            - <a href="https://github.com/wag/finanzausgleich-bern" target="_blank">Source Code</a>
-            - <a href="https://twitter.com/intent/tweet?hashtags=ogd&amp;text=Berner%20Finanzausgleich&amp;url=...&amp;via=OpendataCH" target="_blank">Tweet it!</a>
-        </div>
         <div id="explanations-content" class="flipcontent">
             <div class="col">
             <h2>Finanz- und Lastenausgleichsgesetz (FILAG) des Kantons Bern</h2>
@@ -53,7 +45,7 @@
         </div>
     </div>
     <div id="content">
-        <div id="chart" />
+        <div id="chart"></div>
     </div>
     <script src="lib/d3/d3.min.js"></script>
     <script src="lib/d3-plugins/sankey/sankey.js"></script>

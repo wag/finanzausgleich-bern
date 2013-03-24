@@ -11,7 +11,7 @@ finance.draw = function() {
   };
 
   var chart = document.getElementById('chart'),
-      margin = {top: 30, right: 40, bottom: 120, left: 20},
+      margin = {top: 20, right: 20, bottom: 20, left: 20},
       width = chart.offsetWidth - margin.left - margin.right,
       height = 650 - margin.top - margin.bottom;
 
@@ -79,7 +79,7 @@ finance.draw = function() {
           return '<strong>' + format(d.value) + '</strong><br />' +
                  d.source.name + ' &rarr; ' + d.target.name;
     });
-    finance.tooltip( $('#chart path.link') );
+    finance.tooltip($('#chart path.link'));
 
   // add in the nodes
     var node = svg.append("g").selectAll(".node")
@@ -106,7 +106,7 @@ finance.draw = function() {
             return '<strong>'+ d.name + "</strong><br />" + format(d.value);
         });
 
-    finance.tooltip( $('#chart .node rect') );
+    finance.tooltip($('#chart .node rect'));
 
   // add in the title for the nodes
     node.append("text")

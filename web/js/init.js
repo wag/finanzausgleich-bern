@@ -3,16 +3,17 @@ var finance = {};
 (function($){
   finance.setup = function() {
     $('.flipcontent').hide();
-    $('.fliplink').click(function(evt){
-      current = $($(evt.currentTarget).attr('href'));
-      $('.flipcontent').not(current).slideUp();
-      current.slideToggle();
-      evt.preventDefault();
+    $('.fliplink').click(function(e){
+      current = $($(e.currentTarget).attr('href'));
+      $('.flipcontent').not(current).slideUp('fast');
+      current.slideToggle('fast');
+      e.preventDefault();
     });
   };
 
-  finance.registerListeners = function(svg) {
+  finance.registerListeners = function() {
     // Note: add/toogle/removeClass does not work reliably on svg elements
+    var svg = $('#chart svg');
     svg.on('mouseenter', 'rect', function() {
       var clsList = $(this).parent().attr('class');
       if(clsList.match('node_[0-9]+')) {
@@ -26,6 +27,12 @@ var finance = {};
         $(this).attr('class', $(this).attr('class').replace(' highlight', ''));
       });
     });
+
+    $('#content').on('click', function() {
+      if($('.flipcontent').is(':visible')) {
+        $('.flipcontent').slideUp('fast');
+      }
+    });
   };
 
   $(document).ready(function() {
@@ -33,7 +40,7 @@ var finance = {};
     finance.draw();
     // finance.data();
 
-    finance.registerListeners($('#chart svg'));
+    finance.registerListeners();
   });
 
 }(jQuery));
