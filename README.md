@@ -19,5 +19,5 @@ Possible improvements
 ---
 
  * Include the municipalities of the sections, one section at a time, f.e. clicking a section opens
-   the money strains from the selected section to the newly added municipalities.
+   the money strains from the selected section to the newly added municipalities. A part of this has been realized, see the 'municipalities' branch.
  * Automatically redraw the svg if the window gets resized.
