@@ -1,4 +1,4 @@
-finance.draw = function() {
+finance.fetch = function(data) {
   var units = "CHF",
       valueRange = [1, 100000000];
 
@@ -11,12 +11,11 @@ finance.draw = function() {
   };
 
   var chart = document.getElementById('chart'),
-      margin = {top: 20, right: 20, bottom: 20, left: 20},
+      margin = {top: 20, right: 30, bottom: 20, left: 20},
       width = chart.offsetWidth - margin.left - margin.right,
       height = 650 - margin.top - margin.bottom;
 
-
-  var formatNumber = d3.format(",.0f"),    // zero decimal places
+  var formatNumber = d3.format(",.0f"),
       format = function(d) { return formatNumber(d) + " " + units; },
       color = d3.scale.category20(),
   nodeClass = function(d) {
@@ -43,12 +42,12 @@ finance.draw = function() {
   };
 
   // append the svg canvas to the page
-  var svg = d3.select("#chart").append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-      .attr("transform",
-            "translate(" + margin.left + "," + margin.top + ")");
+  var svg = d3.select('#chart').append('svg')
+      .attr('width', '2000') //width + margin.left + margin.right)
+      .attr('height', '1600') //height + margin.top + margin.bottom)
+      .append('g')
+      .attr('transform',
+            'translate(' + margin.left + ',' + margin.top + ')');
 
   // Set the sankey diagram properties
   var sankey = d3.sankey()
@@ -58,8 +57,7 @@ finance.draw = function() {
 
   var path = sankey.link();
 
-  // load the data
-  d3.json("data/2012.json", function(error, graph) {
+  d3.json(data, function(error, graph) {
     sankey
         .nodes(graph.nodes)
         .links(graph.links)
@@ -73,6 +71,7 @@ finance.draw = function() {
         .attr("d", path)
         .style("stroke-width", function(d) { return Math.max(1, d.dy); })
         .sort(function(a, b) { return b.dy - a.dy; });
+
 
     // add the link tooltip
     link.attr("data-tooltip", function(d) {

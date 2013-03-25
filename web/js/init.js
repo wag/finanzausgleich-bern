@@ -25,6 +25,9 @@ var finance = {};
         $(this).attr('class', $(this).attr('class').replace(' highlight', ''));
       });
     });
+    svg.on('click', 'rect', function(d) {
+      // finance.reDraw('data/TEMP.json');
+    });
 
     $('#content').on('click', function() {
       if($('.flipcontent').is(':visible')) {
@@ -44,14 +47,21 @@ var finance = {};
     });
   };
 
+  finance.reDraw = function(data) {
+    // $('#chart').fadeOut('fast', function() {$(this).html(''); finance.draw();});
+    // $('#chart').delay(1000).fadeIn('fast');
+    $('#chart').html('');
+    finance.fetch(data);
+    $('#chart').hide().fadeIn('slow');
+    $('.loader').show().fadeOut('slow');
+    finance.registerListeners();
+  };
+
   $(document).ready(function() {
     if(!document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1")) {
       $('.too-old').fadeIn('slow');
     } else {
-      finance.draw();
-      $('#chart').hide().fadeIn('slow');
-      $('.loader').show().fadeOut('slow');
-      finance.registerListeners();
+      finance.reDraw('data/main.json');
     }
   });
 
