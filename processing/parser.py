@@ -85,7 +85,7 @@ for section in sections:
             'type': 'section'
         }
 
-# Sections with node values
+# Add node values to the sections
 for side in (collection['left'], collection['right']):
     for section in side.values():
         section['obj']['node'] = node_counter
@@ -175,7 +175,6 @@ for section in sections:
         'side': 'right',
         'type': 'section'
     })
-    collection['right'][section]['obj']['node'] = node_counter
     node_counter += 1
 
     # Municipalities
@@ -190,7 +189,7 @@ for section in sections:
         value = sum([v for v in municipality['values'] if v > 0])
         if value > 0:
             links.append({
-                'source': collection['right'][section]['obj']['node'],
+                'source': 0,
                 'target': node_counter,
                 'value': value
             })

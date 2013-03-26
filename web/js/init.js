@@ -26,7 +26,10 @@ var finance = {};
       });
     });
     svg.on('click', 'rect', function(d) {
-      // finance.reDraw('data/TEMP.json');
+      var clsList = $(this).parent().attr('class');
+      if(clsList.match('node_[0-9]+')) {
+        finance.reDraw('data/' + clsList.split('_')[1] + '.json');
+      }
     });
 
     $('#content').on('click', function() {
@@ -48,8 +51,6 @@ var finance = {};
   };
 
   finance.reDraw = function(data) {
-    // $('#chart').fadeOut('fast', function() {$(this).html(''); finance.draw();});
-    // $('#chart').delay(1000).fadeIn('fast');
     $('#chart').html('');
     finance.fetch(data);
     $('#chart').hide().fadeIn('slow');
