@@ -1,13 +1,30 @@
-var finance = {};
+var base = {};
 
 (function($){
-  finance.registerListeners = function() {
+  base.registerListeners = function() {
     $('.flipcontent').hide();
     $('.fliplink').click(function(e){
-      current = $($(e.currentTarget).attr('href'));
+      var current = $($(e.currentTarget).attr('href'));
       $('.flipcontent').not(current).slideUp('fast');
       current.slideToggle('fast');
       e.preventDefault();
+    });
+
+    $('#content').on('click', function() {
+      if($('.flipcontent').is(':visible')) {
+        $('.flipcontent').slideUp('fast');
+      }
+    });
+
+    $('#menu a.icon').hover(function() {
+      var shorttip = $(this).closest('#menu').find('.shorttip');
+      shorttip.find('.shorttip-tail').css('left', $(this).position().left + 6);
+      if(shorttip.is(':visible')) {
+        shorttip.hide();
+      } else {
+        shorttip.find('.shorttip-text').text($(this).data('shorttip'));
+        shorttip.show();
+      }
     });
 
     // Note: add/toogle/removeClass does not work reliably on svg elements
@@ -28,41 +45,27 @@ var finance = {};
     svg.on('click', 'rect', function(d) {
       var clsList = $(this).parent().attr('class');
       if(clsList.match('node_[0-9]+')) {
-        finance.reDraw('data/' + clsList.split('_')[1] + '.json');
+        $('#chart').html('');
+        visual.drawSankey('data/' + clsList.split('_')[1] + '.json');
       }
     });
 
-    $('#content').on('click', function() {
-      if($('.flipcontent').is(':visible')) {
-        $('.flipcontent').slideUp('fast');
-      }
+    $(window).resize(function() {
+      $('#chart').html('');
+      visual.drawSankey('data/main.json');
+      visual.drawScale();
     });
-
-    $('#menu a.icon').hover(function() {
-      var shorttip = $(this).closest('#menu').find('.shorttip');
-      shorttip.find('.shorttip-tail').css('left', $(this).position().left + 6);
-      if(shorttip.is(':visible')) {
-        shorttip.hide();
-      } else {
-        shorttip.find('.shorttip-text').text($(this).data('shorttip'));
-        shorttip.show();
-      }
-    });
-  };
-
-  finance.reDraw = function(data) {
-    $('#chart').html('');
-    finance.fetch(data);
-    $('#chart').hide().fadeIn('slow');
-    $('.loader').show().fadeOut('slow');
-    finance.registerListeners();
   };
 
   $(document).ready(function() {
     if(!document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1")) {
       $('.too-old').fadeIn('slow');
     } else {
-      finance.reDraw('data/main.json');
+      visual.drawSankey('data/main.json');
+      visual.drawScale();
+      $('#chart').hide().fadeIn('slow');
+      $('.loader').show().fadeOut('slow');
+      base.registerListeners();
     }
   });
 

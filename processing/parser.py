@@ -25,6 +25,7 @@ collection = {
     }),
     'container': {}
 }
+municipalities = defaultdict(lambda: [])
 
 with open(csv_file, 'r') as f:
     # 0 -> Disparitätenabbau
@@ -146,6 +147,10 @@ for line in lines:
             'side': 'right',
             'type': 'municipality'
         }
+        municipalities[section].append({
+            'name': municipality,
+            'value': '%.2f' % sum([float(v) for v in line[2:] if float(v) > 0])
+        })
 
 # Sections and municipalities
 for section in sections:
@@ -205,5 +210,7 @@ for section in sections:
     #             'value': collection['right'][section]['values'][i]
     #         })
 
-    json.dump(section_json, open(json_format.format(year,
+    # json.dump(section_json, open(json_format.format(year,
+    #     collection['right'][section]['obj']['node']), 'w'))
+    json.dump(municipalities[section], open(json_format.format(year,
         collection['right'][section]['obj']['node']), 'w'))
