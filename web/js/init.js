@@ -10,6 +10,23 @@ var base = {};
       e.preventDefault();
     });
 
+    $('#content').on('click', function() {
+      if($('.flipcontent').is(':visible')) {
+        $('.flipcontent').slideUp('fast');
+      }
+    });
+
+    $('#menu a.icon').hover(function() {
+      var shorttip = $(this).closest('#menu').find('.shorttip');
+      shorttip.find('.shorttip-tail').css('left', $(this).position().left + 6);
+      if(shorttip.is(':visible')) {
+        shorttip.hide();
+      } else {
+        shorttip.find('.shorttip-text').text($(this).data('shorttip'));
+        shorttip.show();
+      }
+    });
+
     // Note: add/toogle/removeClass does not work reliably on svg elements
     var svg = $('#chart svg');
     svg.on('mouseenter', 'rect', function() {
@@ -26,21 +43,10 @@ var base = {};
       });
     });
 
-    $('#content').on('click', function() {
-      if($('.flipcontent').is(':visible')) {
-        $('.flipcontent').slideUp('fast');
-      }
-    });
-
-    $('#menu a.icon').hover(function() {
-      var shorttip = $(this).closest('#menu').find('.shorttip');
-      shorttip.find('.shorttip-tail').css('left', $(this).position().left + 6);
-      if(shorttip.is(':visible')) {
-        shorttip.hide();
-      } else {
-        shorttip.find('.shorttip-text').text($(this).data('shorttip'));
-        shorttip.show();
-      }
+    $(window).resize(function() {
+      $('#chart').html('');
+      visual.drawSankey();
+      visual.drawScale();
     });
   };
 
