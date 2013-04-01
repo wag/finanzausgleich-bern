@@ -1,10 +1,10 @@
-var finance = {};
+var base = {};
 
 (function($){
-  finance.registerListeners = function() {
+  base.registerListeners = function() {
     $('.flipcontent').hide();
     $('.fliplink').click(function(e){
-      current = $($(e.currentTarget).attr('href'));
+      var current = $($(e.currentTarget).attr('href'));
       $('.flipcontent').not(current).slideUp('fast');
       current.slideToggle('fast');
       e.preventDefault();
@@ -48,10 +48,11 @@ var finance = {};
     if(!document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1")) {
       $('.too-old').fadeIn('slow');
     } else {
-      finance.draw();
+      visual.drawSankey();
+      visual.drawScale();
       $('#chart').hide().fadeIn('slow');
       $('.loader').show().fadeOut('slow');
-      finance.registerListeners();
+      base.registerListeners();
     }
   });
 

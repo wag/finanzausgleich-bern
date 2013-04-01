@@ -177,6 +177,7 @@ a.icon:hover .icon-twitter {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
+  white-space: normal;
 }
 
 .tooltip h3 {
@@ -193,6 +194,7 @@ a.icon:hover .icon-twitter {
 #chart {
   margin-left: auto;
   margin-right: auto;
+  white-space: nowrap;
 }
 
 .loader {
@@ -211,11 +213,20 @@ a.icon:hover .icon-twitter {
   margin-top:20px;
 }
 
-.node rect {
-  fill-opacity: .45;
+rect,
+line {
   shape-rendering: crispEdges;
 }
+
+rect {
+  fill-opacity: .45;
+}
  
+line {
+  stroke: #000;
+  stroke-width: 1;
+}
+
 .node text {
   pointer-events: none;
   text-shadow: 0 1px 0 #fff;
