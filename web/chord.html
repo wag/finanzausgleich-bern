@@ -74,9 +74,9 @@ function formatNumber(number) {
     return "CHF " + Math.round(number).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
 
-d3.csv("../processing/json/sections_2012.csv", function(sections) {
+d3.csv("data/sections_2012.csv", function(sections) {
 
-    d3.json("../processing/json/matrix_2012.json", function(matrix) {
+    d3.json("data/matrix_2012.json", function(matrix) {
 
         // Compute the chord layout.
         layout.matrix(matrix);
