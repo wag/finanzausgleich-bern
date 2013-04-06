@@ -87,8 +87,8 @@ for section, data in sections.items():
 json.dump(matrix, open(json_file, 'w'))
 
 out = csv.writer(open(csv_file_sections, 'w'), delimiter=',', quoting=csv.QUOTE_ALL)
-out.writerow(['name'])
+out.writerow(['name', 'type'])
 for pot in pots:
-    out.writerow([pot])
+    out.writerow([pot, "pot"])
 for section in sections.keys():
-    out.writerow([section])
+    out.writerow([section, "section"])

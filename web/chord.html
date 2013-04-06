@@ -11,25 +11,25 @@ body {
 }
 
 #circle circle {
-  fill: none;
-  pointer-events: all;
+    fill: none;
+    pointer-events: all;
 }
 
 .group path {
-  fill-opacity: .5;
-stroke: #000;
-stroke-width: .25px;
+    fill-opacity: .5;
+    stroke: #000;
+    stroke-width: .25px;
 }
 
 path.chord {
-  stroke: #000;
-  stroke-width: .25px;
-  fill-opacity: .9;
+    stroke: #000;
+    stroke-width: .25px;
+    fill-opacity: .9;
 }
 
 #circle:hover path.fade {
-  fill-opacity: .05;
-  stroke-opacity: .2;
+    fill-opacity: .05;
+    stroke-opacity: .2;
 }
 
 </style>
@@ -40,8 +40,8 @@ path.chord {
 <script src="lib/d3/lib/colorbrewer/colorbrewer.js"></script>
 <script>
 
-var width = 800,
-    height = 800,
+var width = 700,
+    height = 700,
     outerRadius = Math.min(width, height) / 2 - 130,
     innerRadius = outerRadius - 24;
 
@@ -52,7 +52,7 @@ var arc = d3.svg.arc()
     .outerRadius(outerRadius);
 
 var layout = d3.layout.chord()
-    .padding(.04)
+    .padding(.06)
     .sortSubgroups(d3.descending)
     .sortChords(d3.ascending);
 
@@ -67,7 +67,10 @@ var svg = d3.select("body").append("svg")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 var fill = d3.scale.ordinal()
-    .range(colorbrewer.Paired[12]);
+    .range(colorbrewer.Paired[10]);
+
+var fillPot = d3.scale.ordinal()
+    .range(colorbrewer.Set1[8]);
 
 svg.append("circle")
     .attr("r", outerRadius);
@@ -84,37 +87,37 @@ layout.matrix(matrix);
 // Add a group per neighborhood.
 var group = svg.selectAll(".group")
     .data(layout.groups)
-  .enter().append("g")
+    .enter().append("g")
     .attr("class", "group")
     .on("mouseover", mouseover);
 
 // Add a mouseover title.
 group.append("title").text(function(d, i) {
-  return sections[i].name + ": " + d.value + " of origins";
+    return sections[i].name + ": " + d.value + " of origins";
 });
 
 // Add the group arc.
 var groupPath = group.append("path")
     .attr("id", function(d, i) { return "group" + i; })
     .attr("d", arc)
-    .style("fill", function(d, i) { return fill(i); });
+    .style("fill", function(d, i) { return sections[i].type == 'pot' ? '#33a02c' : '#1f78b4'; });
 
 var labels = group.append("text")
-.each(function(d) { d.angle = d.startAngle + (d.endAngle - d.startAngle) / 2; })
-.text(function(d, i) { return sections[i].name; })
-.attr("text-anchor", function(d) { return d.angle > Math.PI ? "end" : null; })
-.attr("transform", function(d) {
-    return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")"
-      + "translate(" + (outerRadius+5) + ",0)"
-      + (d.angle > Math.PI ? "rotate(180)" : "");
-});
+    .each(function(d) { d.angle = d.startAngle + (d.endAngle - d.startAngle) / 2; })
+    .text(function(d, i) { return sections[i].name; })
+    .attr("text-anchor", function(d) { return d.angle > Math.PI ? "end" : null; })
+    .attr("transform", function(d) {
+        return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")"
+          + "translate(" + (outerRadius+5) + ",0)"
+          + (d.angle > Math.PI ? "rotate(180)" : "");
+    });
 
 // Add the chords.
 var chord = svg.selectAll(".chord")
     .data(layout.chords)
-  .enter().append("path")
+    .enter().append("path")
     .attr("class", "chord")
-    .style("fill", function(d) { return fill(d.source.index); })
+    .style("fill", function(d) { console.log(d); return sections[d.source.index].type == 'pot' ? '#33a02c' : '#1f78b4'; })
     .attr("d", path);
 
 // Add an elaborate mouseover title for each chord.
