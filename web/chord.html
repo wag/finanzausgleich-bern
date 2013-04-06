@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Finanzausgleich Bern</title>
+<title>Finanzausgleich Bern Chord Diagram</title>
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Share:400,700" />
 <style>
 
@@ -63,78 +63,73 @@ var path = d3.svg.chord()
 var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height)
-  .append("g")
+    .append("g")
     .attr("id", "circle")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-var fill = d3.scale.ordinal()
-    .range(colorbrewer.Paired[10]);
-
-var fillPot = d3.scale.ordinal()
-    .range(colorbrewer.Set1[8]);
 
 svg.append("circle")
     .attr("r", outerRadius);
 
+function formatNumber(number) {
+    return "CHF " + Math.round(number).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
+
 d3.csv("../processing/json/sections_2012.csv", function(sections) {
 
-fill.domain(d3.range(sections.length));
+    d3.json("../processing/json/matrix_2012.json", function(matrix) {
 
-d3.json("../processing/json/matrix_2012.json", function(matrix) {
+        // Compute the chord layout.
+        layout.matrix(matrix);
 
-// Compute the chord layout.
-layout.matrix(matrix);
+        // Add a group per neighborhood.
+        var group = svg.selectAll(".group")
+            .data(layout.groups)
+            .enter().append("g")
+            .attr("class", "group")
+            .on("mouseover", mouseover);
 
-// Add a group per neighborhood.
-var group = svg.selectAll(".group")
-    .data(layout.groups)
-    .enter().append("g")
-    .attr("class", "group")
-    .on("mouseover", mouseover);
+        // Add a mouseover title.
+        group.append("title").text(function(d, i) {
+            return sections[i].name + ": " + formatNumber(d.value);
+        });
 
-// Add a mouseover title.
-group.append("title").text(function(d, i) {
-    return sections[i].name + ": " + d.value + " of origins";
-});
+        // Add the group arc.
+        var groupPath = group.append("path")
+            .attr("id", function(d, i) { return "group" + i; })
+            .attr("d", arc)
+            .style("fill", function(d, i) { return sections[i].type == 'pot' ? '#33a02c' : '#1f78b4'; });
 
-// Add the group arc.
-var groupPath = group.append("path")
-    .attr("id", function(d, i) { return "group" + i; })
-    .attr("d", arc)
-    .style("fill", function(d, i) { return sections[i].type == 'pot' ? '#33a02c' : '#1f78b4'; });
+        var labels = group.append("text")
+            .each(function(d) { d.angle = d.startAngle + (d.endAngle - d.startAngle) / 2; })
+            .text(function(d, i) { return sections[i].name; })
+            .attr("text-anchor", function(d) { return d.angle > Math.PI ? "end" : null; })
+            .attr("transform", function(d) {
+                return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")"
+                  + "translate(" + (outerRadius+5) + ",0)"
+                  + (d.angle > Math.PI ? "rotate(180)" : "");
+            });
 
-var labels = group.append("text")
-    .each(function(d) { d.angle = d.startAngle + (d.endAngle - d.startAngle) / 2; })
-    .text(function(d, i) { return sections[i].name; })
-    .attr("text-anchor", function(d) { return d.angle > Math.PI ? "end" : null; })
-    .attr("transform", function(d) {
-        return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")"
-          + "translate(" + (outerRadius+5) + ",0)"
-          + (d.angle > Math.PI ? "rotate(180)" : "");
+        // Add the chords.
+        var chord = svg.selectAll(".chord")
+            .data(layout.chords)
+            .enter().append("path")
+            .attr("class", "chord")
+            .style("fill", function(d) { return sections[d.source.index].type == 'pot' ? '#33a02c' : '#1f78b4'; })
+            .attr("d", path);
+
+        // Add an elaborate mouseover title for each chord.
+        chord.append("title").text(function(d) {
+            return sections[d.source.index].name
+                + " → " + sections[d.target.index].name
+                + ": " + formatNumber(d.source.value);
+        });
+
+        function mouseover(d, i) {
+            chord.classed("fade", function(p) {
+                return p.source.index != i && p.target.index != i;
+            });
+        }
     });
-
-// Add the chords.
-var chord = svg.selectAll(".chord")
-    .data(layout.chords)
-    .enter().append("path")
-    .attr("class", "chord")
-    .style("fill", function(d) { console.log(d); return sections[d.source.index].type == 'pot' ? '#33a02c' : '#1f78b4'; })
-    .attr("d", path);
-
-// Add an elaborate mouseover title for each chord.
-chord.append("title").text(function(d) {
-  return sections[d.source.index].name
-      + " → " + sections[d.target.index].name
-      + ": " + d.source.value;
-});
-
-function mouseover(d, i) {
-  chord.classed("fade", function(p) {
-    return p.source.index != i
-        && p.target.index != i;
-  });
-}
-});
 });
 
 </script>
