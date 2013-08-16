@@ -4,7 +4,7 @@ Description
 This project was realized during the MAKE Finance 22.-23. March 2013 in Berne and Sierre.  
 Further information about the project is available [here](http://make.opendata.ch/wiki/project:finanzausgleich_bern).
 
-Take a look at the [visualization](http://wag.github.com/finanzausgleich-bern/web)!
+Take a look at the [visualization](http://be-fa.budget.opendata.ch)!
 
 Developers
 ---
